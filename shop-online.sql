@@ -66,6 +66,7 @@ DROP TABLE IF EXISTS `product`;
 CREATE TABLE `product` (
   `id` int(11)  NOT NULL AUTO_INCREMENT,
   `name` varchar(50)  NOT NULL,
+  `category` varchar(50)  NOT NULL,
   `price` int NOT NULL,
   
   PRIMARY KEY (`id`)
@@ -77,11 +78,11 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 INSERT INTO `product` VALUES 
-	(1,'dlugopis', 2),
-	(2,'zeszyt', 3),
-	(3,'gumka', 4),
-	(4,'cos', 5),
-	(5,'cos2', 2);
+	(1,'Sluchawki', 'Elektronika', 2),
+	(2,'Spodenki', 'Ubrania', 3),
+	(3,'Pilka', 'Sport', 4),
+	(4,'Apap', 'Zdrowie', 5),
+	(5,'opony', 'Motoryzacja', 2);
 	
 UNLOCK TABLES;
 	
