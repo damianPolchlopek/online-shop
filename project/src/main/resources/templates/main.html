@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <title>Main</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!--<link href="<c:url value="/resources/css/main.css" />" rel="stylesheet">-->
+
+</head>
+
+<body>
+
+<div class="body-container" style="border: 1px solid red; width: 70%; display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;">
+
+    <header class="text-center text-small" style="border: 1px solid black">
+
+
+        <div class="row">
+            <div class="form-inline">
+                <div class="col-sm-5" style="width: 100%;">
+                    <div class="panel-group">
+                        <div class="panel panel-primary">
+
+                            <div class="panel-body" style="background-color: lightgray;">
+                                <div class="text-center">
+                                    <div>
+                                    <input type="search" placeholder="What are you looking for?"
+                                           class="_d25db_31-XG _14uqc"
+                                           value="" autofocus="" autocomplete="off" name="string" required="" data-role="search-input"
+                                           itemprop="query-input">
+                                        <button>Search</button>
+                                    </div>
+                                    <div class="pull-right">
+                                        <button type="button" class="btn btn-primary">Home</button>
+                                        <button type="button" class="btn btn-warning">Basket</button>
+                                        <button type="button" class="btn btn-info">Register</button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </header>
+
+
+
+
+
+    <div class="container-fluid">
+
+        <div class="row content" id="wrapper" >
+
+            <div class="col-sm-3 sidenav" style="border: 1px solid black">
+
+                <h4>Main menu:</h4>
+
+                <ul class="nav nav-pills nav-stacked">
+
+                    <li class="nav-item">
+                        <a href="${pageContext.request.contextPath}/electronics">
+                            Elektronika
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="${pageContext.request.contextPath}/clothes">
+                            Ubrania
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="${pageContext.request.contextPath}/person/showPerson">
+                            Sport i turystyka
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="${pageContext.request.contextPath}/person/showPerson">
+                            Motoryzacja
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="${pageContext.request.contextPath}/person/showPerson">
+                            Zdrowie
+                        </a>
+                    </li>
+
+                    <!--<li class="nav-item">-->
+                        <!--&lt;!&ndash; Add a logout button &ndash;&gt;-->
+                        <!--<form:form action="${pageContext.request.contextPath}/logout"-->
+                                   <!--method="POST">-->
+
+                            <!--<button type="submit" class="btn btn-info">-->
+                                <!--<span class="glyphicon glyphicon-off" ></span>-->
+                                <!--Logout-->
+                            <!--</button>-->
+
+                        <!--</form:form>-->
+                    <!--</li>-->
+
+                </ul><br>
+
+            </div >
+
+            <div class="col-sm-9" id="center" style="border: 1px solid black">
+
+                <h3> Witaj </h3>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <footer class="my-5 pt-5 text-center text-small" style="border: 1px solid black">
+        <h4>Daniel Polchlopek - Sklep internetowy</h4>
+    </footer>
+
+</div>
+</body>
+
+
+</html>

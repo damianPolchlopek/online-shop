@@ -3,7 +3,7 @@ package com.online.shop.project.config;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.context.annotation.Bean;
 
-public class aaa {
+public class AppConfig {
 
 
 

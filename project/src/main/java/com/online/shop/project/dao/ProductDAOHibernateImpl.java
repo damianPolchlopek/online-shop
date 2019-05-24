@@ -5,7 +5,6 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -55,6 +54,17 @@ public class ProductDAOHibernateImpl implements ProductDAO {
                 "delete from Product where id=:productId");
         query.setParameter("productId", theId);
         query.executeUpdate();
+    }
+
+    @Override
+    public List findByCategory(String cat) {
+        Session currentSession = entityManager.unwrap(Session.class);
+
+        Query<Product> query = currentSession.createQuery(
+                "from Product where category=:categoryName", Product.class);
+        query.setParameter("categoryName", cat);
+
+        return query.getResultList();
     }
 
 }

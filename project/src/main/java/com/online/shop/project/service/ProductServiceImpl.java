@@ -42,4 +42,12 @@ public class ProductServiceImpl implements ProductService {
         productDAO.deleteById(theId);
     }
 
+    @Override
+    @Transactional
+    public List<Product> findByCategory(String category) {
+        return productDAO.findByCategory(category);
+    }
+
+
+
 }
