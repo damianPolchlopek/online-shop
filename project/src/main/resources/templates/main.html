@@ -11,7 +11,49 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    <!--<link href="<c:url value="/resources/css/main.css" />" rel="stylesheet">-->
+    <script type="text/javascript">
+
+        function addToBasket(){
+
+        }
+
+        function deleteFromBasket(){
+
+        }
+
+        function mainSearch(){
+
+            
+        }
+
+        function changeDivContent(category) { // ...
+            $.ajax({
+                url: 'http://localhost:8080/'+category, success: function (result) {
+                    console.log("Length: ", result);
+                    var content = "";
+
+                    content += '<ul>';
+
+                    for (var i = 0; i < result.length; i++) {
+                        content +=
+                            '<li>'+
+                            'Name: ' + result[0].name +
+                            ' ,price: ' + result[0].price +
+                            ' <button>Add</button>' +
+                            ' <button>Delete</button>' +
+                            '</li>';
+                    }
+
+                    content += '<ul>';
+
+                    $("#product").html(content);
+                }
+            })
+
+        };
+
+    </script>
+
 
 </head>
 
@@ -24,7 +66,6 @@
     margin-bottom: auto;">
 
     <header class="text-center text-small" style="border: 1px solid black">
-
 
         <div class="row">
             <div class="form-inline">
@@ -55,11 +96,7 @@
             </div>
         </div>
 
-
-
     </header>
-
-
 
 
 
@@ -74,31 +111,31 @@
                 <ul class="nav nav-pills nav-stacked">
 
                     <li class="nav-item">
-                        <a href="${pageContext.request.contextPath}/electronics">
+                        <a onclick="changeDivContent('electronics')">
                             Elektronika
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="${pageContext.request.contextPath}/clothes">
+                        <a onclick="changeDivContent('clothes')">
                             Ubrania
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="${pageContext.request.contextPath}/person/showPerson">
+                        <a onclick="changeDivContent('sport')">
                             Sport i turystyka
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="${pageContext.request.contextPath}/person/showPerson">
+                        <a onclick="changeDivContent('motorization')">
                             Motoryzacja
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="${pageContext.request.contextPath}/person/showPerson">
+                        <a onclick="changeDivContent('health')">
                             Zdrowie
                         </a>
                     </li>
@@ -123,6 +160,13 @@
             <div class="col-sm-9" id="center" style="border: 1px solid black">
 
                 <h3> Witaj </h3>
+
+                <div id="product">
+
+                </div>
+
+
+
 
             </div>
 
