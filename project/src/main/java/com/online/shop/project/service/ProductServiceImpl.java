@@ -44,10 +44,14 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public List<Product> findByCategory(String category) {
+    public List findByCategory(String category) {
         return productDAO.findByCategory(category);
     }
 
-
+    @Override
+    @Transactional
+    public List findByName(String name) {
+        return productDAO.findByName(name);
+    }
 
 }

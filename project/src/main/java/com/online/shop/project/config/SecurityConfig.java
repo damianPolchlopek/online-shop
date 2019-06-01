@@ -22,7 +22,7 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 //    // baza danych uzytkownikow zahardcodowana tutaj
 //    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 //
-//        User.UserBuilder users = User.withDefaultPasswordEncoder();
+//        RegisteredUser.UserBuilder users = RegisteredUser.withDefaultPasswordEncoder();
 //
 //        auth
 //            .inMemoryAuthentication()
@@ -47,8 +47,8 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
 
-
         http.authorizeRequests()
+                .antMatchers("/", "/webjars/**", "/js/**", "/images/**", "/css/**").hasRole("EMPLOYEE")
                 .antMatchers("/**").hasRole("EMPLOYEE")
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .and()

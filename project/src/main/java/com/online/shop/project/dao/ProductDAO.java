@@ -16,4 +16,7 @@ public interface ProductDAO {
     void deleteById(int theId);
 
     List findByCategory(String category);
+
+    List findByName(String name);
+
 }

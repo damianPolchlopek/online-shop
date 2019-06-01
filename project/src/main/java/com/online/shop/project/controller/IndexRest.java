@@ -2,71 +2,67 @@ package com.online.shop.project.controller;
 
 import com.online.shop.project.entity.Product;
 import com.online.shop.project.service.ProductService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 public class IndexRest {
 
-
     private ProductService productService;
 
     public IndexRest(ProductService productService) {this.productService = productService;}
 
-    @GetMapping("/")
-    public String index(){
 
-        return "Greetings from Spring Boot!";
-    }
 
     @GetMapping("/t")
     public List<Product> test(){
-
         System.out.println(productService.findAll());
-
         return productService.findAll();
     }
 
 
+    // get product by id
 
 
     // shop category
     @GetMapping("/electronics")
-    public List<Product> electronics(){
-
+    public List electronics(){
         return productService.findByCategory("Elektronika");
     }
 
     @GetMapping("/clothes")
-    public List<Product> clothes(){
-
+    public List clothes(){
         return productService.findByCategory("Ubrania");
     }
 
     @GetMapping("/sport")
-    public List<Product> sport(){
-
+    public List sport(){
         return productService.findByCategory("Sport");
     }
 
     @GetMapping("/motorization")
-    public List<Product> motorization(){
-
+    public List motorization(){
+        System.out.println("Mot: " + productService.findByCategory("Motoryzacja"));
         return productService.findByCategory("Motoryzacja");
     }
 
     @GetMapping("/health")
-    public List<Product> health(){
-
+    public List health(){
         return productService.findByCategory("Zdrowie");
     }
 
+    @RequestMapping(value = "/search", method = RequestMethod.POST,
+                    consumes = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody List searchProduct(@RequestBody String myJsonString) throws JSONException {
+        JSONObject json = new JSONObject(myJsonString);
+        String name = json.getString("name");
 
-
-
-
+        return productService.findByName(name);
+    }
 
 
 }

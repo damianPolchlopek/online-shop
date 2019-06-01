@@ -21,24 +21,16 @@ public class ProductDAOHibernateImpl implements ProductDAO {
 
     @Override
     public List<Product> findAll() {
-
         Session currentSession = entityManager.unwrap(Session.class);
-
         Query<Product> theQuery =
                 currentSession.createQuery("from Product", Product.class);
-
-        List<Product> products = theQuery.getResultList();
-
-        return products;
-
+        return theQuery.getResultList();
     }
 
     @Override
     public Product findById(int theId) {
         Session currentSession = entityManager.unwrap(Session.class);
-        Product product =
-                currentSession.get(Product.class, theId);
-        return product;
+        return currentSession.get(Product.class, theId);
     }
 
     @Override
@@ -59,12 +51,21 @@ public class ProductDAOHibernateImpl implements ProductDAO {
     @Override
     public List findByCategory(String cat) {
         Session currentSession = entityManager.unwrap(Session.class);
-
         Query<Product> query = currentSession.createQuery(
                 "from Product where category=:categoryName", Product.class);
         query.setParameter("categoryName", cat);
-
         return query.getResultList();
     }
+
+    @Override
+    public List findByName(String argument) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        Query<Product> query = currentSession.createQuery(
+                "from Product where name=:name", Product.class);
+        query.setParameter("name", argument);
+        return query.getResultList();
+    }
+
+
 
 }

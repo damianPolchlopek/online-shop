@@ -8,12 +8,14 @@ public interface ProductService {
 
     List<Product> findAll();
 
-    List<Product> findByCategory(String category);
+    List findByCategory(String category);
 
     Product findById(int theId);
 
     void save(Product theWord);
 
     void deleteById(int theId);
+
+    List findByName(String name);
 
 }

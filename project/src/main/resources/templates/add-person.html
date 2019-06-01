@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head>
     <title>Main</title>
@@ -12,48 +12,18 @@
 
     <script type="text/javascript">
 
-        function addProductToBasket(id, name, price){
-            console.log("Id: ", id);
-            console.log("Name: ", name);
-            console.log("Price: ", price);
-
-            var actualPrice = document.getElementById("basket").value;
-            console.log("Add product price: ", document.getElementById("basket").value);
-
-            var content = '2';
-            $("#basket").html(content);
-        }
-
-        function deleteFromBasket(id, name, price){
-            console.log("Delete product");
-
-            var content = '0';
-            $("#basket").html(content);
-        }
-
         function printResult(result) {
             var content = '<ul>';
 
             for (var i = 0; i < result.length; i++) {
-                console.log('Res: ', result[i]);
-
-                var id = result[i].id;
-                var name = result[i].name;
-                var price = result[i].price;
-
                 content +=
                     '<li>'+
-                    'Name: ' + name +
-                    ', price: ' + price +
-                    ' <button onclick="addProductToBasket(\'' + id + '\',\'' +
-                                                                name + '\',\'' +
-                                                                price + '\')">' +
-                    'Add</button>' +
-
-                    ' <button >Delete</button>' +
+                    'Name: ' + result[0].name +
+                    ', price: ' + result[0].price +
+                    ' <button>Add</button>' +
+                    ' <button>Delete</button>' +
                     '</li>';
             }
-
             content += '<ul>';
             $("#product").html(content);
         }
@@ -86,6 +56,7 @@
                     printResult(result);
                 }
             })
+
         }
 
     </script>
@@ -93,7 +64,11 @@
 
 <body>
 
-<div class="body-container" style="border: 1px solid red; width: 70%; display: block; margin: auto;">
+<div class="body-container"
+     style="border: 1px solid red;
+            width: 70%;
+            display: block;
+            margin: auto;">
 
     <header class="text-center text-small" style="border: 1px solid black">
 
@@ -107,7 +82,7 @@
                                 <div class="text-center">
                                     <div>
                                         <input id="searchInput"
-                                                type="search"
+                                               type="search"
                                                placeholder="What are you looking for?"
                                                class="_d25db_31-XG _14uqc"
                                                value="" autofocus="" autocomplete="off" name="string" required="" data-role="search-input"
@@ -124,9 +99,7 @@
                                         <div style="border: 1px solid black; display: inline-block;">
                                             <div style="display: block">
                                                 <img width="50px" height="20px" src="../images/basket.png">
-                                                <div id="basket">
-                                                    0
-                                                </div>
+                                                <input type="text" value="0" id="basket" style="width: 50px"/>
                                             </div>
                                         </div>
 
@@ -150,7 +123,6 @@
         </div>
 
     </header>
-
 
 
     <div class="container-fluid">
@@ -199,14 +171,31 @@
 
             <div class="col-sm-9" id="center" style="border: 1px solid black">
 
-                <h3> Witaj </h3>
+                <div>
+                    <h1>
+                        Dodawanie nowego uzytkownika
+                    </h1>
 
-                <div id="product">
+                    <form action="#" th:action="@{/verifyRegisterData}" th:object="${user}" method="post">
 
+                        <div>
+                            <label>Username:</label>
+                            <input text="text" th:field="*{username}" placeholder="Enter username:"/>
+                        </div>
+
+                        <div>
+                            <label>Password:</label>
+                            <input text="text" th:field="*{firstPassword}" placeholder="Enter password:"/>
+                        </div>
+
+                        <div>
+                            <label>Again password:</label>
+                            <input text="text" th:field="*{secondPassword}" placeholder="Enter password again:"/>
+                        </div>
+
+                        <input type="submit" value="Submit" />
+                    </form>
                 </div>
-
-
-
 
             </div>
 
@@ -220,6 +209,5 @@
 
 </div>
 </body>
-
 
 </html>
