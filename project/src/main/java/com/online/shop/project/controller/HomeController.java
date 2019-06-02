@@ -21,11 +21,15 @@ import java.util.List;
 @Controller
 public class HomeController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    private final ProductService productService;
 
     @Autowired
-    private ProductService productService;
+    public HomeController(UserService userService, ProductService productService) {
+        this.userService = userService;
+        this.productService = productService;
+    }
 
 //    public HomeController(UserService userService) {
 //        this.userService = userService;
