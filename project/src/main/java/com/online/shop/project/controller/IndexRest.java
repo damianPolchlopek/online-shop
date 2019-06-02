@@ -17,7 +17,6 @@ public class IndexRest {
     public IndexRest(ProductService productService) {this.productService = productService;}
 
 
-
     @GetMapping("/t")
     public List<Product> test(){
         System.out.println(productService.findAll());
@@ -25,7 +24,13 @@ public class IndexRest {
     }
 
 
+
     // get product by id
+    @GetMapping("/product/{id}")
+    public Product getProduct(@PathVariable int id){
+        return productService.findById(id);
+    }
+
 
 
     // shop category
@@ -46,13 +51,17 @@ public class IndexRest {
 
     @GetMapping("/motorization")
     public List motorization(){
-        System.out.println("Mot: " + productService.findByCategory("Motoryzacja"));
         return productService.findByCategory("Motoryzacja");
     }
 
     @GetMapping("/health")
     public List health(){
         return productService.findByCategory("Zdrowie");
+    }
+
+    @GetMapping("/other")
+    public List other(){
+        return productService.findByCategory("Inne");
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.POST,

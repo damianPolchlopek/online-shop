@@ -12,33 +12,84 @@
 
     <script type="text/javascript">
 
+        var basketItems = [];
+
+        function showBasketContent(){
+            var content = "Twoje zamowienia: ";
+            content += '<ul>';
+
+            for (var i = 0; i < basketItems.length; i++) {
+                console.log("res: ", basketItems[i]);
+                var name  = basketItems[i].name;
+                var price = basketItems[i].price;
+
+                content +=
+                    '<li>'+
+                    'Name: ' + name +
+                    ', price: ' + price +
+                    '</li>';
+
+            }
+            content += '</ul>';
+            content += '<button onclick="buyProductAndClearBasket()">Kup</button>';
+
+            // console.log('Basket: ', basketItems);
+            $("#product").html(content);
+        }
+
         function addProductToBasket(id, name, price){
-            console.log("Id: ", id);
-            console.log("Name: ", name);
-            console.log("Price: ", price);
 
-            var actualPrice = document.getElementById("basket").value;
-            console.log("Add product price: ", document.getElementById("basket").value);
+            var currentPrice      = document.getElementById("basket").innerText;
+            var currentPriceFloat = parseFloat(currentPrice);
+            var priceFloat        = parseFloat(price);
+            var newPrice          = currentPriceFloat + priceFloat;
 
-            var content = '2';
-            $("#basket").html(content);
+            $.ajax({
+                url: 'http://localhost:8080/product/'+id,
+                success: function(result, status, xhr) {
+                    // console.log('Dodany item: ', result);
+                    basketItems.push(result);
+                }
+            });
+
+            $("#basket").html(newPrice);
         }
 
         function deleteFromBasket(id, name, price){
-            console.log("Delete product");
 
-            var content = '0';
-            $("#basket").html(content);
+            $.ajax({
+                url: 'http://localhost:8080/product/'+id,
+                success: function(result, status, xhr) {
+
+                    var searchingItem = basketItems.find(function(product){
+                        return product.id === result.id;
+                    });
+                    var productIndex = basketItems.indexOf(searchingItem);
+
+                    if (searchingItem)
+                    {
+                        basketItems.splice(productIndex, 1);
+
+                        var currentPrice      = document.getElementById("basket").innerText;
+                        var currentPriceFloat = parseFloat(currentPrice);
+                        var priceFloat        = parseFloat(price);
+                        var newPrice          = currentPriceFloat - priceFloat;
+
+                        $("#basket").html(newPrice);
+                    }
+                }
+            });
+
         }
 
-        function printResult(result) {
+        function printProduct(result) {
             var content = '<ul>';
 
             for (var i = 0; i < result.length; i++) {
                 console.log('Res: ', result[i]);
 
-                var id = result[i].id;
-                var name = result[i].name;
+                var id    = result[i].id;
+                var name  = result[i].name;
                 var price = result[i].price;
 
                 content +=
@@ -50,7 +101,10 @@
                                                                 price + '\')">' +
                     'Add</button>' +
 
-                    ' <button >Delete</button>' +
+                    ' <button onclick="deleteFromBasket(\'' + id + '\',\'' +
+                                                                name + '\',\'' +
+                                                                price + '\')">' +
+                    'Delete</button>' +
                     '</li>';
             }
 
@@ -71,21 +125,31 @@
                 dataType: "json",
                 success: function(result, status, xhr) {
                     // console.log('Res: ', result);
-                    printResult(result)
+                    printProduct(result)
                 }
             });
 
-            // console.log('Element!!!!: ', JSON.stringify(inputData));
-            // console.log('main search: ', document.getElementById("searchInput").value);
         }
 
         function changeDivContent(category) { // ...
             $.ajax({
                 url: 'http://localhost:8080/'+category,
                 success: function(result, status, xhr) {
-                    printResult(result);
+                    printProduct(result);
                 }
             })
+        }
+
+        function buyProductAndClearBasket(){
+            if (basketItems.length === 0){
+                alert('Koszyk pusty');
+            }
+            else {
+                basketItems = [];
+                $("#basket").html(0);
+                $("#product").html('');
+                alert('Zamowienie pzyjete');
+            }
         }
 
     </script>
@@ -121,7 +185,9 @@
                                                 onclick="window.location.href='/main'">
                                             Home</button>
 
-                                        <div style="border: 1px solid black; display: inline-block;">
+                                        <div onclick="showBasketContent()"
+                                             style="border: 1px solid black; display: inline-block;">
+
                                             <div style="display: block">
                                                 <img width="50px" height="20px" src="../images/basket.png">
                                                 <div id="basket">
@@ -150,7 +216,6 @@
         </div>
 
     </header>
-
 
 
     <div class="container-fluid">
@@ -190,6 +255,21 @@
                     <li class="nav-item">
                         <a onclick="changeDivContent('health')">
                             Zdrowie
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a onclick="changeDivContent('other')">
+                            Inne
+                        </a>
+                    </li>
+
+                    <hr>
+                    <hr>
+
+                    <li class="nav-item">
+                        <a href="/addProduct">
+                            Add product
                         </a>
                     </li>
 

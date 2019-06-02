@@ -1,9 +1,13 @@
 package com.online.shop.project.controller;
 
+import com.online.shop.project.dto.NewProduct;
 import com.online.shop.project.dto.RegisteredUser;
 import com.online.shop.project.entity.Authorities;
+import com.online.shop.project.entity.Product;
 import com.online.shop.project.entity.User;
+import com.online.shop.project.service.ProductService;
 import com.online.shop.project.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,17 +21,20 @@ import java.util.List;
 @Controller
 public class HomeController {
 
+    @Autowired
     private UserService userService;
 
-    public HomeController(UserService userService) {
-        this.userService = userService;
-    }
+    @Autowired
+    private ProductService productService;
+
+//    public HomeController(UserService userService) {
+//        this.userService = userService;
+//    }
 
     @GetMapping("/")
     public String index(){
         return "redirect:/main";
     }
-
 
     @GetMapping("/main")
     public String main(){
@@ -43,8 +50,8 @@ public class HomeController {
     @PostMapping("/verifyRegisterData")
     public String checkData(@ModelAttribute("user") RegisteredUser registeredUser){
 
-        System.out.println("John: " + userService.findByName("john"));
-        System.out.println("Registered: " + registeredUser);
+//        System.out.println("John: " + userService.findByName("john"));
+//        System.out.println("Registered: " + registeredUser);
 
         if (!checkIfTwoPasswordIsTheSame(registeredUser)){
             System.out.println("Rozne hasla");
@@ -69,7 +76,7 @@ public class HomeController {
         user.setAuthorities(authorities);
 
         userService.save(user);
-        System.out.println("Zapisalem dane");
+//        System.out.println("Zapisalem dane");
 
         return "redirect:/main";
     }
@@ -84,5 +91,24 @@ public class HomeController {
 //
 //        return userService.findByName(registeredUser.getUsername()) != null;
 //    }
+
+    @GetMapping("/addProduct")
+    public String addNewProduct(Model model){
+        model.addAttribute("product", new NewProduct());
+        return "add-product";
+    }
+
+    @PostMapping("/verifyProductData")
+    public String checkData(@ModelAttribute("product") NewProduct newProduct){
+
+        Product product = new Product();
+        product.setPrice(newProduct.getPrice());
+        product.setCategory(newProduct.getCategory());
+        product.setName(newProduct.getName());
+
+        productService.save(product);
+
+        return "redirect:/main";
+    }
 
 }

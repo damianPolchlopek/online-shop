@@ -11,7 +11,7 @@ public interface ProductDAO {
 
     Product findById(int theId);
 
-    void save(Product theWord);
+    void save(Product theProduct);
 
     void deleteById(int theId);
 

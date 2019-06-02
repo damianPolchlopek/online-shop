@@ -66,6 +66,4 @@ public class ProductDAOHibernateImpl implements ProductDAO {
         return query.getResultList();
     }
 
-
-
 }

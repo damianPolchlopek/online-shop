@@ -188,24 +188,32 @@
 
                 <div>
                     <h1>
-                        Dodawanie nowego uzytkownika
+                        Dodawanie nowego produktu
                     </h1>
 
-                    <form action="#" th:action="@{/verifyRegisterData}" th:object="${user}" method="post">
+                    <form action="#" th:action="@{/verifyProductData}" th:object="${product}" method="post">
 
                         <div>
-                            <label>Username:</label>
-                            <input text="text" th:field="*{username}" placeholder="Enter username:"/>
+                            <label>Name:</label>
+                            <input text="text" th:field="*{name}" placeholder="Enter product name:"/>
                         </div>
 
                         <div>
-                            <label>Password:</label>
-                            <input text="pass" th:field="*{firstPassword}" placeholder="Enter password:" type="password"/>
+                            <label>Price:</label>
+                            <input text="text" th:field="*{price}" placeholder="Enter price:"/>
                         </div>
 
                         <div>
-                            <label>Again password:</label>
-                            <input text="text" th:field="*{secondPassword}" placeholder="Enter password again:" type="password"/>
+                            <label>Select category:</label>
+                            <!--<input text="text" th:field="*{category}" placeholder="Enter category:"/>-->
+                            <select th:field="*{category}">
+                                <option value="Elektronika">Elektronika</option>
+                                <option value="Sport">Sport</option>
+                                <option value="Ubrania">Ubrania</option>
+                                <option value="Zdrowie">Zdrowie</option>
+                                <option value="Motoryzacja">Motoryzacja</option>
+                                <option value="Inne">Inne</option>
+                            </select>
                         </div>
 
                         <input type="submit" value="Submit" />

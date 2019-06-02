@@ -20,13 +20,9 @@ public class Product {
     @Column(name = "price")
     private Integer price;
 
-    public Product() {
-    }
+    @Column(name = "category")
+    private String category;
 
-    public Product(String name, Integer price) {
-        this.name = name;
-        this.price = price;
-    }
 
 
 }
